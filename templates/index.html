@@ -13,7 +13,7 @@
 <body style="background: var(--bs-body-color);color: var(--bs-secondary-bg);">
     <div class="justify-content-center align-items-center d-flex odstep">
         <div class="blok mt-0">
-            <div class="d-flex justify-content-between">
+            <div class="">
                 <h1 id="1_h"></h1>
             </div>
             <div class="prawy_g_rog">
@@ -27,7 +27,7 @@
     <div class="justify-content-center align-items-center d-flex odstep">
         <div class="blok">
             <div style="margin-top: 10px;" class="">
-                <h1 id="2_h">test</h1>
+                <h1 id="2_h"></h1>
             </div>
         </div>
     </div>
@@ -47,9 +47,6 @@
         </div>
     </div>
 
-
-
-
     <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
     <script>
@@ -66,22 +63,23 @@
         let data_jsons = []
         let active_device = null
         $.getJSON('{% url 'get_devices' %}',function(data){
-            $.each(data,function(key,value){
-                $.each(value,function(key,value){
-                    if (active_device === null) {
-                        active_device = value;
-                        $('#1_h').text(`The carbon footprint at the sensor ${active_device.devName} has increased by ...`)
-                        $('#dropdown_button').text(value.devName)
-                        $('#dropdown_button').removeAttr('disabled')
+            console.log(data.devices_data)
+            $.each(data.devices,function(key,value){
+                if (active_device === null) {
+                    active_device = value;
+                    $('#1_h').html(`${active_device.devName} - carbon footprint` + "<br>Avg: ... <br> Peak: ...")
+                    $('#2_h').html(`The carbon footprint at the sensor ${active_device.devName} has increased by ...
+                    <br>in the last x hours`)
+                    $('#dropdown_button').text(value.devName)
+                    $('#dropdown_button').removeAttr('disabled')
 
-                        $('#dropdown').append('<a class="dropdown-item" href="#">'+value.devName+'</a>')
-                        set_active(active_device.devName)
-                        data_jsons.push(value)
-                    } else {
-                        $('#dropdown').append('<a class="dropdown-item" href="#">' + value.devName + '</a>')
-                        data_jsons.push(value)
-                    }
-                })
+                    $('#dropdown').append('<a class="dropdown-item" href="#">'+value.devName+'</a>')
+                    set_active(active_device.devName)
+                    data_jsons.push(value)
+                } else {
+                    $('#dropdown').append('<a class="dropdown-item" href="#">' + value.devName + '</a>')
+                    data_jsons.push(value)
+                }
             })
         })
         addEventListener('click',function(e){
@@ -89,8 +87,10 @@
                 $('#dropdown_button').text(e.target.innerText)
                 active_device = data_jsons.find(x => x.devName === e.target.innerText)
                 set_active(active_device.devName)
-                console.log(active_device)
-                $('#1_h').text(`The carbon footprint at the sensor ${active_device.devName} has increased by ...`)
+
+                $('#1_h').html(`${active_device.devName} - carbon footprint` + "<br>Avg: ... <br> Peak: ...")
+                $('#2_h').html(`The carbon footprint at the sensor ${active_device.devName} has increased by ...
+                 <br>in the last x hours`)
             }
         })
 
