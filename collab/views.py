@@ -139,7 +139,7 @@ class DevicesApi(APIView):
                 percentage_comparison = 0  # lub inna wartość w przypadku dzielenia przez zero
             percentage_comparison_per_device.append({
                 'devName': devName,
-                'prcnt': percentage_comparison
+                'prcnt': round(percentage_comparison,2)
             })
 
 
