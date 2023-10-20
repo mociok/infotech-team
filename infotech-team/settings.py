@@ -75,8 +75,12 @@ WSGI_APPLICATION = 'infotech-team.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'PASSWORD': 'ff3Y"GUt?UHrUoEr',
+        'USER': 'collab_app',
+        'HOST': '34.118.112.23',
+        'PORT': '3306',
+        'NAME': 'collab',
     }
 }
 
