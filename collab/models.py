@@ -4,8 +4,6 @@ from django.db import models
 class Devices(models.Model):
     devEui = models.CharField(max_length=100,unique=True) # primary key
     devName = models.CharField(max_length=100) # unique Name of device
-    #decodedPayload = models.JSONField(null=True) # decoded payload
-    #time = models.DateTimeField(auto_now_add=True) # time of receiving data
     user = models.ManyToManyField('auth.User', related_name='devices', blank=True) # user that have access to data from multiple devices
 
     def __str__(self):

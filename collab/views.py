@@ -39,9 +39,7 @@ class LoraApi(APIView):
                 device=Devices.objects.get(devEui=devEui)
             )
             device.decodedPayload.set(data_vars)
-
-
-
+            device.save()
             return Response({"status": "ok"})
         except Exception as e:
             print(e)
