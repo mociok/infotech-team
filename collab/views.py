@@ -4,7 +4,7 @@ from rest_framework.decorators import permission_classes
 from rest_framework_api_key.permissions import HasAPIKey
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .models import DeviceData
+from .models import DeviceData, DeviceDataVars,Devices
 
 
 def index(req):
@@ -27,12 +27,22 @@ class LoraApi(APIView):
     def post(self, req):
         try:
             json_data = find_key(req.data, "decoded_payload")
+            data_vars = []
+            for data in json_data:
+                datavar = DeviceDataVars.objects.create(
+                    variable_name=data,
+                    variable=json_data[data]
+                )
+                data_vars.append(datavar)
             devEui = find_key(req.data, "dev_eui")
-            DeviceData.objects.create(
-                device_id=devEui,
-                decodedPayload=json_data
+            device = DeviceData.objects.create(
+                device=Devices.objects.get(devEui=devEui)
             )
+            device.decodedPayload.set(data_vars)
+
+
 
             return Response({"status": "ok"})
         except Exception as e:
+            print(e)
             return Response({"status": "error"})
