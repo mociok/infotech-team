@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'collab',
+    'collab',  # our app
     'rest_framework',
     'rest_framework_api_key',
 ]

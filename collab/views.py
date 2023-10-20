@@ -8,7 +8,7 @@ from .models import DeviceData, DeviceDataVars,Devices
 
 
 def index(req):
-    return render(req, 'index.html')
+    return render(req, 'index.html') # render index.html
 
 
 # JHVcEiAH.qjWZxBoAtyURBl3NNoqOnleLbmtjrh9A -- API KEY!!!1!
