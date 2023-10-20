@@ -5,3 +5,4 @@ setuptools==68.2.0
 sqlparse==0.4.4
 wheel==0.41.2
 mysqlclient==2.2.0
+whitenoise==6.6.0

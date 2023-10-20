@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html data-bs-theme="light" lang="en">
 
@@ -5,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>collabothon rzeczy</title>
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
 </head>
 
 <body style="background: var(--bs-body-color);color: var(--bs-secondary-bg);">
@@ -35,7 +36,7 @@
             <div style="background: var(--bs-gray-dark);justify-content: center;display: flex;align-items: center;margin-top: 50px;min-height: 500px;min-width: 603px;"></div>
         </div>
     </div>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
 </body>
 
 </html>
