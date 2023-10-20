@@ -5,9 +5,13 @@ class Devices(models.Model):
     devEui = models.CharField(max_length=100,unique=True) # primary key
     devName = models.CharField(max_length=100) # unique Name of device
     user = models.ManyToManyField('auth.User', related_name='devices', blank=True) # user that have access to data from multiple devices
+    is_public = models.BooleanField(default=False, help_text="Ignores users and shows the device for everyone") # is device public
 
     def __str__(self):
-        return f"{self.devName} - {self.devEui} - Users: {self.user.all().count()}"
+        if self.is_public:
+            return f"{self.devName} - {self.devEui} - Public"
+        else:
+            return f"{self.devName} - {self.devEui} - Users: {self.user.all().count()}"
 
 
 class DeviceData(models.Model):

@@ -18,7 +18,7 @@
             </div>
             <div class="obiekt ">
                 <div class="dropdown float-start" style="margin-top: 15px; "><button class="btn btn-primary dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button">Dropdown </button>
-                    <div class="dropdown-menu"><a class="dropdown-item" href="#">First Item</a><a class="dropdown-item" href="#">Second Item</a><a class="dropdown-item" href="#">Third Item</a></div>
+                    <div class="dropdown-menu" id="dropdown">{#<a class="dropdown-item" href="#">First Item</a><a class="dropdown-item" href="#">Second Item</a><a class="dropdown-item" href="#">Third Item</a> #}</div>
                 </div>
             </div>
         </div>
@@ -27,7 +27,7 @@
     <div class="justify-content-center align-items-center d-flex odstep">
         <div class="blok">
             <div style="margin-top: 10px;" class="">
-                <iframe src="https://www.predictivesolutions.pl/uploads/blog/automatyzacja-psip-4/01.%20Domyślny%20wykres.png" width="500" height="400" frameborder="0" style="margin-left: 200px; margin-right: 200px;"></iframe>
+                <h1>test</h1>
             </div>
         </div>
     </div>
@@ -35,7 +35,7 @@
     <div class="justify-content-center align-items-center d-flex odstep">
         <div class="blok">
             <div style="margin-top: 10px; margin-bottom: 0" class="">
-                <h1>Twój ślad węglowy wzrósł o coś tam cośtam&nbsp;</h1>
+                <iframe src="https://www.predictivesolutions.pl/uploads/blog/automatyzacja-psip-4/01.%20Domyślny%20wykres.png" width="500" height="400" frameborder="0" style="margin-left: 200px; margin-right: 200px;"></iframe>
             </div>
         </div>
     </div>
@@ -44,6 +44,20 @@
 
 
     <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
+    <script>
+        let data_jsons = []
+        $.getJSON('{% url 'get_devices' %}',function(data){
+            $.each(data,function(key,value){
+                $.each(value,function(key,value){
+                    $('#dropdown').append('<a class="dropdown-item" href="#">'+value.devName+'</a>')
+                    data_jsons.push(value)
+                })
+            })
+        })
+        console.log(data_jsons)
+
+    </script>
 </body>
 
 </html>

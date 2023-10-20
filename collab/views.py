@@ -44,3 +44,10 @@ class LoraApi(APIView):
         except Exception as e:
             print(e)
             return Response({"status": "error"})
+
+@permission_classes([permissions.IsAuthenticated])
+class DevicesApi(APIView):
+    def get(self, req):
+        devices = Devices.objects.filter(user=req.user, is_public=False)
+        pub_devices = Devices.objects.filter(is_public=True)
+        return Response({"devices": devices.values(), "public": pub_devices.values()})
