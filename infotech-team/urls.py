@@ -20,5 +20,5 @@ from collab.views import index
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('collab.urls')),
+    path('', include('collab.urls')), # include urls from collab app
 ]

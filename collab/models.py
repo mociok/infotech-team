@@ -24,8 +24,8 @@ class DeviceData(models.Model):
 
 
 class DeviceDataVars(models.Model):
-    variable_name = models.CharField(max_length=100)
-    variable = models.CharField(max_length=250)
+    variable_name = models.CharField(max_length=100) # name of variable
+    variable = models.CharField(max_length=250) # value of variable
 
     def __str__(self):
         return f"({self.id}) {self.variable_name} - {self.variable}"
