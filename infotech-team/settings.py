@@ -15,7 +15,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -26,7 +25,6 @@ SECRET_KEY = 'django-insecure-4uvt!@yi9bf*9624)+uk+kyr63$!a@54k2wb8_10%&ite6h8rj
 DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', "*"]
-
 
 # Application definition
 
@@ -92,7 +90,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'infotech-team.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
@@ -106,7 +103,6 @@ DATABASES = {
         'NAME': 'collab',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -126,7 +122,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -137,7 +132,6 @@ TIME_ZONE = 'Europe/Warsaw'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
@@ -157,8 +151,8 @@ AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 
-LOGIN_REDIRECT_URL = '/index' # after login redirect to home page
-LOGOUT_REDIRECT_URL = '/' # after logout redirect to home page
+LOGIN_REDIRECT_URL = '/index'  # after login redirect to home page
+LOGOUT_REDIRECT_URL = '/'  # after logout redirect to home page
 
 CSRF_TRUSTED_ORIGINS = [
     'https://https://infotech-team-h7zawhdoca-lm.a.run.app'
@@ -169,3 +163,5 @@ CORS_ORIGIN_WHITELIST = [
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
