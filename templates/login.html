@@ -12,7 +12,8 @@
 <body style="background: var(--bs-body-color);color: var(--bs-secondary-bg);">
     <div class="duzy">
         <div class="maly">
-            <button type="button" class="przycisk">Log-In with Google</button>
+            {% load socialaccount %}
+            <a href="{% provider_login_url 'google' %}?next=/"><button type="button" class="przycisk">Log-In with Google</button></a>
         </div>
     </div>
 </body>

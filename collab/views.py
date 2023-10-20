@@ -5,14 +5,21 @@ from rest_framework_api_key.permissions import HasAPIKey
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import DeviceData, DeviceDataVars,Devices
+from django.shortcuts import redirect, render
+from django.contrib.auth import logout
 
 
 def index(req):
     return render(req, 'index.html') # render index.html
 
-def login(req):
-    return render(req, 'login.html') # render index.html
 
+def login(req):
+    return render(req, 'login.html')  # render login.html
+
+
+def logout(req):
+    logout(req)  # logout user
+    return redirect('/')
 
 
 # JHVcEiAH.qjWZxBoAtyURBl3NNoqOnleLbmtjrh9A -- API KEY!!!1!
