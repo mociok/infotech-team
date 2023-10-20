@@ -10,6 +10,10 @@ from .models import DeviceData, DeviceDataVars,Devices
 def index(req):
     return render(req, 'index.html') # render index.html
 
+def login(req):
+    return render(req, 'login.html') # render index.html
+
+
 
 # JHVcEiAH.qjWZxBoAtyURBl3NNoqOnleLbmtjrh9A -- API KEY!!!1!
 def find_key(input_dict, target_key):
