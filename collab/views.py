@@ -5,7 +5,7 @@ from rest_framework_api_key.permissions import HasAPIKey
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import DeviceData, DeviceDataVars,Devices
-
+from django.db.models import Q
 
 def index(req):
     return render(req, 'index.html') # render index.html
@@ -15,7 +15,7 @@ def login(req):
 
 
 
-# JHVcEiAH.qjWZxBoAtyURBl3NNoqOnleLbmtjrh9A -- API KEY!!!1!
+# 4hXGwzn4.LbYxWp0Ikiv9u5cneU0h2WRm3jFBMzom -- API KEY!!!1!
 def find_key(input_dict, target_key):
     """Rekursywnie przeszukuje słownik w poszukiwaniu określonego klucza."""
     if target_key in input_dict:
@@ -52,7 +52,7 @@ class LoraApi(APIView): # API View
 @permission_classes([permissions.IsAuthenticated])
 class DevicesApi(APIView):
     def get(self, req):
-        devices = Devices.objects.filter(user=req.user, is_public=False)
-        pub_devices = Devices.objects.filter(is_public=True)
-        print(DeviceData.objects.filter(device__in=pub_devices))
-        return Response({"devices": devices.values(), "public": pub_devices.values()})
+        devices = Devices.objects.filter(Q(user=req.user, is_public=False) | Q(is_public=True))
+        #devices_data = DeviceData.objects.filter(device__in=devices)
+        #print(devices_data)
+        return Response({"devices": devices.values()})#, "devices_data": devices_data.values()})
