@@ -50,4 +50,5 @@ class DevicesApi(APIView):
     def get(self, req):
         devices = Devices.objects.filter(user=req.user, is_public=False)
         pub_devices = Devices.objects.filter(is_public=True)
+        print(DeviceData.objects.filter(device__in=pub_devices))
         return Response({"devices": devices.values(), "public": pub_devices.values()})

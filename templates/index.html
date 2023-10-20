@@ -14,10 +14,10 @@
     <div class="justify-content-center align-items-center d-flex odstep">
         <div class="blok mt-0">
             <div class="">
-                <h1>Twój ślad węglowy wzrósł o coś tam cośtam&nbsp;</h1>
+                <h1 id="1_h"></h1>
             </div>
             <div class="obiekt ">
-                <div class="dropdown float-start" style="margin-top: 15px; "><button class="btn btn-primary dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button">Dropdown </button>
+                <div class="dropdown float-start" style="margin-top: 15px; "><button id="dropdown_button" class="btn btn-primary dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button" disabled>device</button>
                     <div class="dropdown-menu" id="dropdown">{#<a class="dropdown-item" href="#">First Item</a><a class="dropdown-item" href="#">Second Item</a><a class="dropdown-item" href="#">Third Item</a> #}</div>
                 </div>
             </div>
@@ -27,7 +27,7 @@
     <div class="justify-content-center align-items-center d-flex odstep">
         <div class="blok">
             <div style="margin-top: 10px;" class="">
-                <h1>test</h1>
+                <h1 id="2_h">test</h1>
             </div>
         </div>
     </div>
@@ -53,16 +53,47 @@
     <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
     <script>
+        function set_active(name) {
+            var item = $(".dropdown-item").filter(function() {
+                    return $(this).text().trim() === name;
+                });
+                if (item.length > 0) {
+                    $(".dropdown-item").removeClass("active");
+                    item.addClass("active");
+                }
+        }
+
         let data_jsons = []
+        let active_device = null
         $.getJSON('{% url 'get_devices' %}',function(data){
             $.each(data,function(key,value){
                 $.each(value,function(key,value){
-                    $('#dropdown').append('<a class="dropdown-item" href="#">'+value.devName+'</a>')
-                    data_jsons.push(value)
+                    if (active_device === null) {
+                        active_device = value;
+                        $('#1_h').text(`The carbon footprint at the sensor ${active_device.devName} has increased by ...`)
+                        $('#dropdown_button').text(value.devName)
+                        $('#dropdown_button').removeAttr('disabled')
+
+                        $('#dropdown').append('<a class="dropdown-item" href="#">'+value.devName+'</a>')
+                        set_active(active_device.devName)
+                        data_jsons.push(value)
+                    } else {
+                        $('#dropdown').append('<a class="dropdown-item" href="#">' + value.devName + '</a>')
+                        data_jsons.push(value)
+                    }
                 })
             })
         })
-        console.log(data_jsons)
+        addEventListener('click',function(e){
+            if (e.target.classList.contains('dropdown-item')) {
+                $('#dropdown_button').text(e.target.innerText)
+                active_device = data_jsons.find(x => x.devName === e.target.innerText)
+                set_active(active_device.devName)
+                console.log(active_device)
+                $('#1_h').text(`The carbon footprint at the sensor ${active_device.devName} has increased by ...`)
+            }
+        })
+
 
     </script>
 </body>
