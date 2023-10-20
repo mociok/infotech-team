@@ -163,3 +163,9 @@ LOGOUT_REDIRECT_URL = '/' # after logout redirect to home page
 CSRF_TRUSTED_ORIGINS = [
     'https://https://infotech-team-h7zawhdoca-lm.a.run.app'
 ]
+
+CORS_ORIGIN_WHITELIST = [
+    'https://https://infotech-team-h7zawhdoca-lm.a.run.app'
+]
+
+CORS_ORIGIN_ALLOW_ALL = True
