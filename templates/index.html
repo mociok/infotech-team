@@ -60,16 +60,27 @@
                 }
         }
 
+        function findDeviceByName(devName) {
+            return data.find(item => item.device__devName === devName);
+        }
+
         let data_jsons = []
         let active_device = null
         $.getJSON('{% url 'get_devices' %}',function(data){
-            console.log(data.devices_data)
+            console.log(data.avg,data.peak,data.percentage)
             $.each(data.devices,function(key,value){
+                var data_avg = data.avg.find(element => element.device__devName === value.devName);
+                var data_peak = data.peak.find(element => element.device__devName === value.devName);
+                var data_percentage = data.percentage.find(element => element.devName === value.devName);
+                if (data_percentage === undefined) {
+                    data_percentage = {prcnt: 0}
+                }
+
                 if (active_device === null) {
                     active_device = value;
-                    $('#1_h').html(`${active_device.devName} - carbon footprint` + "<br>Avg: ... <br> Peak: ...")
-                    $('#2_h').html(`The carbon footprint at the sensor ${active_device.devName} has increased by ...
-                    <br>in the last x hours`)
+                    $('#1_h').html(`${active_device.devName} - carbon footprint` + `<br>Avg: ${data_avg.avg_value} <br> Peak: ${data_peak.max_value}`)
+                    $('#2_h').html(`The carbon footprint at the sensor ${active_device.devName} has increased by ${data_percentage.prcnt}%
+                    <br>in the last 24 hours`)
                     $('#dropdown_button').text(value.devName)
                     $('#dropdown_button').removeAttr('disabled')
 

@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from django.shortcuts import render
 from rest_framework import permissions
 from rest_framework.decorators import permission_classes
@@ -5,7 +7,10 @@ from rest_framework_api_key.permissions import HasAPIKey
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import DeviceData, DeviceDataVars,Devices
-from django.db.models import Q
+from django.db.models import Q,Avg, FloatField, F,Max
+from django.utils import timezone
+from django.db.models.functions import Cast
+from django.db.models.expressions import ExpressionWrapper
 from django.shortcuts import redirect, render
 from django.contrib.auth import logout
 
@@ -62,11 +67,80 @@ class DevicesApi(APIView):
     def get(self, req):
         devices = Devices.objects.filter(Q(user=req.user, is_public=False) | Q(is_public=True))
         devices_data_list = []
-        devices_data = DeviceData.objects.filter(device__in=devices)
-        for device_data in devices_data:
-            result = {
-                'device': str(device_data.device),
-                'data': {var.variable_name: var.variable for var in device_data.decodedPayload.all()}
-            }
-            devices_data_list.append(result)
-        return Response({"devices": devices.values(),"devices_data": devices_data_list})
+        average_overall_co2_per_device = DeviceData.objects.filter(
+            decodedPayload__variable_name='CO2'
+        ).values(
+            'device__devName'
+        ).annotate(
+            avg_value=Avg(
+                ExpressionWrapper(
+                    Cast(F('decodedPayload__variable'), FloatField()),
+                    output_field=FloatField()
+                )
+            )
+        )
+
+        peak_overall_co2_per_device = DeviceData.objects.filter(
+            decodedPayload__variable_name='CO2'
+        ).values(
+            'device__devName'
+        ).annotate(
+            max_value=Max(
+                ExpressionWrapper(
+                    Cast(F('decodedPayload__variable'), FloatField()),
+                    output_field=FloatField()
+                )
+            )
+        )
+
+        # Definicja okresów czasu
+        last_hour = timezone.now() - timedelta(hours=1)
+        last_24_hours = timezone.now() - timedelta(hours=24)
+
+        # Obliczenie średniej z ostatniej godziny dla zmiennej 'CO2' dla każdego urządzenia
+        average_last_hour_co2_per_device = DeviceData.objects.filter(
+            time__gte=last_hour,
+            decodedPayload__variable_name='CO2'
+        ).values(
+            'device__devEui', 'device__devName'
+        ).annotate(
+            avg_value=Avg(
+                ExpressionWrapper(
+                    Cast(F('decodedPayload__variable'), FloatField()),
+                    output_field=FloatField()
+                )
+            )
+        )
+
+        # Obliczenie średniej z ostatnich 24 godzin dla zmiennej 'CO2' dla każdego urządzenia
+        average_last_24_hours_co2_per_device = DeviceData.objects.filter(
+            time__gte=last_24_hours,
+            decodedPayload__variable_name='CO2'
+        ).values(
+            'device__devEui', 'device__devName'
+        ).annotate(
+            avg_value=Avg(
+                ExpressionWrapper(
+                    Cast(F('decodedPayload__variable'), FloatField()),
+                    output_field=FloatField()
+                )
+            )
+        )
+
+        percentage_comparison_per_device = []
+        for last_hour_data, last_24_hours_data in zip(average_last_hour_co2_per_device,
+                                                      average_last_24_hours_co2_per_device):
+            devEui = last_hour_data['device__devEui']
+            devName = last_hour_data['device__devName']
+            if last_24_hours_data['avg_value'] != 0:
+                percentage_comparison = ((last_hour_data['avg_value'] - last_24_hours_data['avg_value']) /
+                                         last_24_hours_data['avg_value']) * 100
+            else:
+                percentage_comparison = 0  # lub inna wartość w przypadku dzielenia przez zero
+            percentage_comparison_per_device.append({
+                'devName': devName,
+                'prcnt': percentage_comparison
+            })
+
+
+        return Response({"devices": devices.values(),"avg":average_overall_co2_per_device,"peak":peak_overall_co2_per_device,"percentage":percentage_comparison_per_device})
