@@ -63,7 +63,7 @@
         let data_jsons = []
         let active_device = null
         $.getJSON('{% url 'get_devices' %}',function(data){
-            //console.log(data.devices_data)
+            console.log(data.devices_data)
             $.each(data.devices,function(key,value){
                 if (active_device === null) {
                     active_device = value;

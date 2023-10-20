@@ -53,6 +53,12 @@ class LoraApi(APIView): # API View
 class DevicesApi(APIView):
     def get(self, req):
         devices = Devices.objects.filter(Q(user=req.user, is_public=False) | Q(is_public=True))
-        #devices_data = DeviceData.objects.filter(device__in=devices)
-        #print(devices_data)
-        return Response({"devices": devices.values()})#, "devices_data": devices_data.values()})
+        devices_data_list = []
+        devices_data = DeviceData.objects.filter(device__in=devices)
+        for device_data in devices_data:
+            result = {
+                'device': str(device_data.device),
+                'data': {var.variable_name: var.variable for var in device_data.decodedPayload.all()}
+            }
+            devices_data_list.append(result)
+        return Response({"devices": devices.values(),"devices_data": devices_data_list})

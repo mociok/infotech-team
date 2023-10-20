@@ -16,7 +16,7 @@ class Devices(models.Model):
 
 class DeviceData(models.Model):
     device = models.ForeignKey(Devices, on_delete=models.CASCADE, related_name='data') # device that send data
-    decodedPayload = models.ManyToManyField('DeviceDataVars', related_name='data') # decoded payload
+    decodedPayload = models.ManyToManyField('DeviceDataVars', related_name='data_vars') # decoded payload
     time = models.DateTimeField(auto_now_add=True) # time of receiving data
 
     def __str__(self):
