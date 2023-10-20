@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-4uvt!@yi9bf*9624)+uk+kyr63$!a@54k2wb8_10%&ite6h8rj
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1',]
+ALLOWED_HOSTS = ['127.0.0.1', "*"]
 
 
 # Application definition
@@ -83,7 +83,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'PASSWORD': 'ff3Y"GUt?UHrUoEr',
         'USER': 'collab_app',
-        'HOST': '34.118.112.23',
+        'HOST': os.environ.get('DB_HOST', '34.118.112.23'),
         'PORT': '3306',
         'NAME': 'collab',
     }
