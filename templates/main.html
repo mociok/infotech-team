@@ -12,7 +12,16 @@
     <!-- Messages CSS -->
     <link rel="stylesheet" href="{% static 'assets/bootstrap/css/messages.css' %}">
 </head>
+<style>
+    body{
+        background-image: url("{% static 'img/img1.png' %}");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        height: 100%;
 
+    }
+</style>
 <body style="overflow-x: hidden;">
     <!-- Messages -->
     {% if messages %}
@@ -50,7 +59,7 @@
         </div>
     </div>
 </div>
-    <div class="row obramowka" style="margin-top: 15px; background-color: pink">
+    <div class="row obramowka" style="margin-top: 15px;">
         <div class="col">
             <h1 id="ai_trend">Loading AI...</h1>
         </div>
