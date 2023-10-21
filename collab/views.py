@@ -196,7 +196,7 @@ class VertexAiChat(APIView):
             f'Based on the CO2 levels and the trend analysis:'
             f'- Average CO2 Value: {data["avg"]} ppm - Peak CO2 Value: {data["peak"]} ppm'
             f'- {data["percentage"]}, write few steps that can lead to a reduction in urban/office environments.'
-            f'List the steps in the HTML format.',
+            f'List the steps in the HTML <ul> <li> format.',
             **parameters,
         )
         #print(f"Response from Model: {response.text}")
