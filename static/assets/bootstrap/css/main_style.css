@@ -18,6 +18,8 @@ body, html {
     margin-top: 10px;
     margin-bottom: 0;
     width: 100%;
+          background-color: rgba(255, 255, 255, 0.8); /* Przezroczyste tło */
+
 }
 .dane2{
     border-top: solid black 1px;
@@ -29,6 +31,8 @@ body, html {
     margin-top:10px ;
     margin-bottom: 0;
     width: 100%;
+          background-color: rgba(255, 255, 255, 0.8); /* Przezroczyste tło */
+
 }
 
 .obramowka, .obramowka2{
@@ -37,6 +41,8 @@ body, html {
     padding: 10px;
     margin: 10px;
     margin-top: 5px;
+          background-color: rgba(255, 255, 255, 0.8); /* Przezroczyste tło */
+
 }
 .obramowka2{
     margin: 20px;
@@ -56,6 +62,8 @@ img{
 
 .obramowka {
       margin-top: 15px;
+      background-color: rgba(255, 255, 255, 0.8); /* Przezroczyste tło */
+
     }
 
     /* Nowy styl dla div z klasą "biur" */
@@ -75,6 +83,8 @@ img{
 .obramowka3 {
     border: solid black 1px;
     border-radius: 10px;
+          background-color: rgba(238, 238, 238, 0.7); /* Przezroczyste tło */
+
 }
 
 .biur {
@@ -96,7 +106,7 @@ img{
 }
 
 .blur {
-      background-color: rgba(255, 255, 255, 0.7); /* Przezroczyste tło */
+      background-color: rgba(232, 219, 219, 0.7); /* Przezroczyste tło */
       border: solid black 1px;
       border-radius: 10px;
       padding: 10px;
