@@ -123,6 +123,14 @@
                     data_jsons.push(value)
                 }
             })
+        }) .fail(function(jqXHR, textStatus, errorThrown) {
+            if (errorThrown.includes("Forbidden")) {
+                alert("You are not logged in!") 
+                window.location.href = "{% url 'admin:index' %}" //login
+            } else {
+                alert("Error: " + errorThrown + "\nTry again later!")
+                window.location.href = "{% url 'admin:index' %}" //login
+            }
         })
         addEventListener('click',function(e){
             if (e.target.classList.contains('dropdown-item')) {
