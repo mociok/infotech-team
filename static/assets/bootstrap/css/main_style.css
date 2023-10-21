@@ -1,0 +1,12 @@
+.dane1{
+    border-top: solid black 1px;
+    border-bottom: solid black 1px;
+    border-left: solid black 1px;
+    border-radius: 10px 0 0 10px;
+}
+.dane2{
+    border-top: solid black 1px;
+    border-bottom: solid black 1px;
+    border-right: solid black 1px;
+    border-radius: 0 10px 10px 0;
+}
