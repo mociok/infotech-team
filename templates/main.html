@@ -43,7 +43,7 @@
               <img src="{% static 'img/img1.png' %}" alt="zdjęcie" style="border-radius: 10px">
                 <div class="blur-container">
                   <div class="blur">
-                    <h2>napisik napisik napisik napisik napisik napisik napisik napisik napisik napisik </h2>
+                    <h4 id="ai_trend">Loading AI...</h4>
                   </div>
 
                   <div class="row d-flex justify-content-start align-items-start justify-content-md-center align-items-md-center blur" style="margin-left: 0; margin-right: 0; overflow-x: hidden;">
@@ -96,7 +96,7 @@
     <div class="row obramowka" style="margin-top: 15px;">
         <div class="col">
             <h1>kroki postępowanie karne&nbsp;</h1><br>
-            <ul style="font-size: 1.25rem">
+            <!--<ul style="font-size: 1.25rem">
                 <li>li</li>
                 <li>li</li>
                 <li>li</li>
@@ -104,7 +104,8 @@
                 <li>li</li>
 
 
-            </ul>
+            </ul>-->
+            <p id="ai_steps"></p>
         </div>
     </div>
     <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
@@ -221,6 +222,21 @@
                 } else
                     setText(active_device.devName, active_avg.avg_value, active_peak.max_value, active_percentage.prcnt)
             }
+        })
+
+        $.getJSON('{% url 'ai' 'Data Average: 897.6 ppm Data Peak: 1231 ppm The carbon footprint at the Sensor tree-7 has increased by 5.23% in the last hour' %}',
+        function(data){
+            console.log(data)
+            $('#ai_trend').html(data.trend)
+            $('#ai_steps').html(data.steps)
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+            if (errorThrown.includes("Forbidden")) {
+                alert("You are not logged in!")
+                window.location.href = "{% url 'login' %}" //login
+            } else {
+                alert("Error: " + errorThrown + "\nTry again later!")
+            }
+
         })
 
 
