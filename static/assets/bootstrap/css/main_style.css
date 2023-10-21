@@ -4,6 +4,7 @@
     border-left: solid black 1px;
     border-radius: 10px 0 0 10px;
     font-size: 1.25rem;
+    margin: 10px;
 
 }
 .dane2{
@@ -12,13 +13,17 @@
     border-right: solid black 1px;
     border-radius: 0 10px 10px 0;
     font-size: 1.25rem;
+    margin: 10px;
 }
 
-.obramowka{
+.obramowka, .obramowka2{
     border: solid black 1px;
     border-radius: 10px;
     padding: 10px;
     margin: 10px;
+}
+.obramowka2{
+    margin: 20px;
 }
 /*.lewy{*/
 /*    position: absolute;*/
