@@ -10,11 +10,11 @@
     <link rel="stylesheet" href="{% static 'assets/bootstrap/css/style.css' %}">
 </head>
 
-<body style="background: var(--bs-body-color);color: var(--bs-secondary-bg);">
-    <div class="justify-content-center align-items-center d-flex odstep">
+<body style="background-image: linear-gradient(to right,#c33764,#1D2671);color: var(--bs-secondary-bg);">
+    <div class="justify-content-center align-items-center d-flex odstep" style="margin-top: 15px">
         <div class="blok mt-0">
             <div class="">
-                <h1 id="1_h"></h1>
+                <h1 id="1_h">Loading...</h1>
             </div>
             <div class="prawy_g_rog">
                 <div class="dropdown float-start" style="margin-top: 15px; "><button id="dropdown_button" class="btn btn-primary dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button" disabled>device</button>
@@ -27,7 +27,7 @@
     <div class="justify-content-center align-items-center d-flex odstep">
         <div class="blok">
             <div style="margin-top: 10px;" class="">
-                <h1 id="2_h"></h1>
+                <h1 id="2_h">Loading...</h1>
             </div>
         </div>
     </div>
@@ -60,16 +60,58 @@
                 }
         }
 
+        function findDeviceByName(devName) {
+            return data.find(item => item.device__devName === devName);
+        }
+
+        function setText(devName, data_avg, data_peak, data_percentage) {
+            $('#1_h').html(`${devName} - carbon footprint` + `<br>Avg: ${data_avg} ppm <br> Peak: ${data_peak} ppm`)
+
+            if (data_percentage === null) {
+                 $('#2_h').html(`The carbon footprint at the Sensor ${devName} has not enough data
+                <br>to show the percentage change in the last hour`)
+            } else {
+                if (data_percentage < 0) {
+                    $('#2_h').html(`The carbon footprint at the Sensor ${devName} has <br><c style="color:limegreen;">decreased</c>
+                    by ${data_percentage * -1}% in the last hour`)
+                } else {
+                    $('#2_h').html(`The carbon footprint at the Sensor ${devName} has <br><c style="color:red;">increased</c>
+                    by ${data_percentage}% in the last hour`)
+                }
+            }
+        }
+
         let data_jsons = []
         let active_device = null
+        let avg_jsons = []
+        let peak_jsons = []
+        let percentage_jsons = []
+        let active_avg = null
+        let active_peak = null
+        let active_percentage = null
         $.getJSON('{% url 'get_devices' %}',function(data){
-            console.log(data.devices_data)
+            //console.log(data.avg,data.peak,data.percentage)
             $.each(data.devices,function(key,value){
+                var data_avg = data.avg.find(element => element.device__devName === value.devName);
+                var data_peak = data.peak.find(element => element.device__devName === value.devName);
+                var data_percentage = data.percentage.find(element => element.devName === value.devName);
+                if (data_percentage === undefined) {
+                    data_percentage = {prcnt: null}
+                }
+                if (data_avg === undefined) {
+                    data_avg = {avg_value: "No data"}
+                }
+                if (data_peak === undefined) {
+                    data_peak = {max_value: "No data"}
+                }
+
                 if (active_device === null) {
                     active_device = value;
-                    $('#1_h').html(`${active_device.devName} - carbon footprint` + "<br>Avg: ... <br> Peak: ...")
-                    $('#2_h').html(`The carbon footprint at the sensor ${active_device.devName} has increased by ...
-                    <br>in the last x hours`)
+                    avg_jsons = data.avg
+                    peak_jsons = data.peak
+                    percentage_jsons = data.percentage
+
+                    setText(active_device.devName, data_avg.avg_value, data_peak.max_value, data_percentage.prcnt)
                     $('#dropdown_button').text(value.devName)
                     $('#dropdown_button').removeAttr('disabled')
 
@@ -81,16 +123,31 @@
                     data_jsons.push(value)
                 }
             })
-        })
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+            if (errorThrown.includes("Forbidden")) {
+                alert("You are not logged in!")
+                window.location.href = "{% url 'admin:index' %}" //login
+            } else {
+                alert("Error: " + errorThrown + "\nTry again later!")
+                window.location.href = "{% url 'admin:index' %}" //login
+            }
+        })/*.done(function(){
+            //Coś możemy zrobić jak sie dane załadują
+        })*/
         addEventListener('click',function(e){
             if (e.target.classList.contains('dropdown-item')) {
                 $('#dropdown_button').text(e.target.innerText)
                 active_device = data_jsons.find(x => x.devName === e.target.innerText)
                 set_active(active_device.devName)
 
-                $('#1_h').html(`${active_device.devName} - carbon footprint` + "<br>Avg: ... <br> Peak: ...")
-                $('#2_h').html(`The carbon footprint at the sensor ${active_device.devName} has increased by ...
-                 <br>in the last x hours`)
+                active_avg = avg_jsons.find(x => x.device__devName === active_device.devName)
+                active_peak = peak_jsons.find(x => x.device__devName === active_device.devName)
+                active_percentage = percentage_jsons.find(x => x.devName === active_device.devName)
+
+                if (active_percentage === undefined) {
+                    setText(active_device.devName, active_avg.avg_value, active_peak.max_value, null)
+                } else
+                    setText(active_device.devName, active_avg.avg_value, active_peak.max_value, active_percentage.prcnt)
             }
         })
 
