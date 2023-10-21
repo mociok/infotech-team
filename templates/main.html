@@ -203,7 +203,7 @@
                     $('#data_avg').html("&nbsp;Data Average: " + data_avg.avg_value +" ppm")
                     $('#data_peak').html("Data Peak: " + data_peak.max_value+" ppm&nbsp;")
 
-                    GenerateText(data_avg.avg_value, data_peak.max_value, data_percentage.prcnt)
+                    GenerateText(data_avg.avg_value, data_peak.max_value, $('#carbon').text())
                 } else {
                     $('#dropdown').append('<a class="dropdown-item" href="#">' + value.devName + '</a>')
                     data_jsons.push(value)
@@ -233,7 +233,7 @@
                 active_peak = peak_jsons.find(x => x.device__devName === active_device.devName)
                 active_percentage = percentage_jsons.find(x => x.devName === active_device.devName)
 
-                GenerateText(active_avg.avg_value, active_peak.max_value, active_percentage.prcnt)
+                GenerateText(active_avg.avg_value, active_peak.max_value, $('#carbon').text())
                 if (active_percentage === undefined) {
                     setText(active_device.devName, active_avg.avg_value, active_peak.max_value, null)
                 } else
@@ -249,12 +249,8 @@
 
             $('#dropdown_button').prop('disabled', true)
             is_generating = true
-
-            if (percentage === undefined || percentage === null) {
-                percentage = 0.0
-            }
-            let ai_data = `{"avg": ${avg},"peak": ${peak},"percentage": ${percentage}}`
-
+            let ai_data = `{"avg": ${avg},"peak": ${peak},"percentage": "${percentage}"}`
+            console.log(ai_data)
             $.getJSON(`/api/ai/${ai_data}/`,
             function(data){
                 console.log(data)
