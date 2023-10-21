@@ -156,25 +156,30 @@ body, html {
     margin-top: 5px;
 }
 
-img{
+img {
     width: 100vw;
     height: auto;
     display: block;
     max-height: 100vh;
+    position: absolute; /* Dodane, aby zdjęcie było na tle */
+    top: 0;
+    left: 0;
+    z-index: -1; /* Upewnia się, że obraz jest pod innymi elementami */
 }
 
 .biur {
     position: relative;
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
 }
 
 .blur-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     width: 80%;
     text-align: center;
+    z-index: 1; /* Upewnia się, że kontener jest nad obrazem */
 }
 
 .blur {
