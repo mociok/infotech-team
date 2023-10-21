@@ -9,8 +9,29 @@
     <link rel="stylesheet" href="{% static 'assets/bootstrap/css/login.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <title>Log-In</title>
+
+    <!-- Messages CSS -->
+    <link rel="stylesheet" href="{% static 'assets/bootstrap/css/messages.css' %}">
 </head>
 <body>
+    <!-- Messages -->
+    {% if messages %}
+        <div id="messages">
+          {% for message in messages %}
+              {% if message.tags == 'error' %}
+                  <div class="alert alert-danger alert-dismissible" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              {% else %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              {% endif %}
+          {% endfor %}
+        </div>
+    {% endif %}
     <div class="duzy">
         <div class="maly">
             {% load socialaccount %}
@@ -25,4 +46,11 @@
 </body>
 <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
+<script>
+    window.setTimeout(function() {
+        $(".alert").fadeTo(500, 0).slideUp(500, function(){
+            $(this).remove();
+        });
+    }, 4000);
+</script>
 </html>

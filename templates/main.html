@@ -8,9 +8,23 @@
     <title>szybka strona ux ui</title>
     <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'assets/bootstrap/css/main_style.css' %}">
+
+    <!-- Messages CSS -->
+    <link rel="stylesheet" href="{% static 'assets/bootstrap/css/messages.css' %}">
 </head>
 
 <body style="overflow-x: hidden;">
+    <!-- Messages -->
+    {% if messages %}
+        <div id="messages">
+          {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          {% endfor %}
+        </div>
+    {% endif %}
     <div class="row" style="position: sticky; top: 0; z-index: 100;background-color: white">
     <!-- Lewy div -->
     <div class="col-4 d-flex justify-content-start align-items-center">
@@ -270,6 +284,13 @@
             })
         }
 
+    </script>
+    <script>
+        window.setTimeout(function() {
+            $(".alert").fadeTo(500, 0).slideUp(500, function(){
+                $(this).remove();
+            });
+        }, 4000);
     </script>
 </body>
 

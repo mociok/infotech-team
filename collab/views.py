@@ -1,4 +1,5 @@
 from datetime import timedelta
+from functools import wraps
 
 from django.shortcuts import render
 from rest_framework import permissions
@@ -13,11 +14,27 @@ from django.db.models.functions import Cast,Round
 from django.db.models.expressions import ExpressionWrapper
 from django.shortcuts import redirect, render
 from django.contrib.auth import logout
+from django.contrib import messages
+
 
 import vertexai
 from vertexai.language_models import ChatModel, InputOutputTextPair
 from vertexai.preview.language_models import TextGenerationModel
 import json
+
+
+def login_required_message(function):
+    """This is a decorator that is used to wrap around views where login is required to access the page."""
+    @wraps(function)
+    def wrap(request, *args, **kwargs):
+        """This class is a custom implementation of Django's built-in PasswordResetView and is used to handle the
+        password reset process."""
+        if request.user.is_authenticated:
+            return function(request, *args, **kwargs)
+        else:
+            messages.warning(request, "Login required.")
+            return redirect("login")  # zmień na nazwę swojego widoku logowania
+    return wrap
 
 
 def index(req):
@@ -27,11 +44,16 @@ def index(req):
 def login(req):
     return render(req, 'login.html')  # render login.html
 
+
+@login_required_message
 def main(req):
     return render(req, 'main.html')
 
+
+@login_required_message
 def signout(req):
     logout(req)  # logout user
+    messages.info(req, "Successfully logged out.")
     return redirect('login')
 
 
