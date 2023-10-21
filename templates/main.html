@@ -195,6 +195,8 @@
 
                     $('#data_avg').html("&nbsp;Data Average: " + data_avg.avg_value +" ppm")
                     $('#data_peak').html("Data Peak: " + data_peak.max_value+" ppm&nbsp;")
+
+                    GenerateText(data_avg.avg_value, data_peak.max_value, data_percentage.prcnt)
                 } else {
                     $('#dropdown').append('<a class="dropdown-item" href="#">' + value.devName + '</a>')
                     data_jsons.push(value)
@@ -228,33 +230,34 @@
             }
         })
 
-        if (active_percentage === undefined || active_percentage === null) {
-            active_percentage = 0.0
-        }
-        let ai_data = {
-           // "device": active_device.devName,
-            "avg": active_avg,
-            "peak": active_peak,
-            "percentage": active_percentage
-        }
-        console.log("wysyłamy do ai dane: ",ai_data,"\nzobaczymy co dalej...")
-        $.getJSON(`/api/ai/${ai_data}/`,
-        function(data){
-            console.log(data)
-            $('#ai_trend').html(data.trend)
-            $('#ai_steps').html(data.steps)
-        }).fail(function(jqXHR, textStatus, errorThrown) {
-            if (errorThrown.includes("Forbidden")) {
-                alert("You are not logged in!")
-                window.location.href = "{% url 'login' %}" //login
-            } else {
-                console.log("Error: " + errorThrown + "\nTry again later!")
-                $('#ai_trend').text("There was an Error when generating prompt!\n Try again later")
-                $('#ai_steps').text("There was an Error when generating prompt!\n Try again later")
+        function GenerateText(avg,peak, percentage) {
+            if (percentage === undefined || percentage === null) {
+                percentage = 0.0
             }
+            let ai_data = {
+               // "device": active_device.devName,
+                "avg": avg,
+                "peak": peak,
+                "percentage": percentage
+            }
+            console.log("wysyłamy do ai dane: ",ai_data,"\nzobaczymy co dalej...")
+            $.getJSON(`/api/ai/${ai_data}/`,
+            function(data){
+                console.log(data)
+                $('#ai_trend').html(data.trend)
+                $('#ai_steps').html(data.steps)
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                if (errorThrown.includes("Forbidden")) {
+                    alert("You are not logged in!")
+                    window.location.href = "{% url 'login' %}" //login
+                } else {
+                    console.log("Error: " + errorThrown + "\nTry again later!")
+                    $('#ai_trend').text("There was an Error when generating prompt!\n Try again later")
+                    $('#ai_steps').text("There was an Error when generating prompt!\n Try again later")
+                }
 
-        })
-
+            })
+        }
 
     </script>
 </body>
