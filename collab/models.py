@@ -13,10 +13,11 @@ class Devices(models.Model):
         else:
             return f"{self.devName} - {self.devEui} - Users: {self.user.all().count()}"
 
-    class Meta():
+    class Meta:
         verbose_name_plural = "Devices"
         verbose_name = "Device"
         db_table = "devices"
+        managed = True
 
 
 class DeviceData(models.Model):
@@ -27,10 +28,11 @@ class DeviceData(models.Model):
     def __str__(self):
         return f"{self.device.devName} - {self.device.devEui} // added at: {self.time.strftime('%m/%d/%Y, %H:%M')}"
 
-    class Meta():
+    class Meta:
         verbose_name_plural = "Device Data"
         verbose_name = "Device Data"
         db_table = "device_data"
+        managed = True
 
 
 class DeviceDataVars(models.Model):
@@ -40,7 +42,8 @@ class DeviceDataVars(models.Model):
     def __str__(self):
         return f"({self.id}) {self.variable_name} - {self.variable}"
 
-    class Meta():
+    class Meta:
         verbose_name_plural = "Device Data Variables"
         verbose_name = "Device Data Variable"
         db_table = "device_data_vars"
+        managed = True
