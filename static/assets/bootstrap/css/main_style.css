@@ -1,3 +1,6 @@
+* {
+   box-sizing: border-box;
+}
 .dane1 {
     border-top: solid black 1px;
     border-bottom: solid black 1px;
