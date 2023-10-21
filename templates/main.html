@@ -224,7 +224,17 @@
             }
         })
 
-        $.getJSON('{% url 'ai' 'Data Average: 897.6 ppm Data Peak: 1231 ppm The carbon footprint at the Sensor tree-7 has increased by 5.23% in the last hour' %}',
+        if (active_percentage === undefined || active_percentage === null) {
+            active_percentage = 0.0
+        }
+        let ai_data = {
+            "device": active_device.devName,
+            "avg": active_avg,
+            "peak": active_peak,
+            "percentage": active_percentage
+        }
+        console.log("wysyłamy do ai dane: ",ai_data,"\nzobaczymy co dalej...")
+        $.getJSON(`/api/ai/${ai_data}/`,
         function(data){
             console.log(data)
             $('#ai_trend').html(data.trend)
@@ -234,7 +244,9 @@
                 alert("You are not logged in!")
                 window.location.href = "{% url 'login' %}" //login
             } else {
-                alert("Error: " + errorThrown + "\nTry again later!")
+                console.log("Error: " + errorThrown + "\nTry again later!")
+                $('#ai_trend').text("There was an Error when generating prompt!\n Try again later")
+                $('#ai_steps').text("There was an Error when generating prompt!\n Try again later")
             }
 
         })
