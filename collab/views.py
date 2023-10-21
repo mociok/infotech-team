@@ -146,5 +146,4 @@ class DevicesApi(APIView):
                 'prcnt': round(percentage_comparison,2)
             })
 
-
         return Response({"devices": devices.values(),"avg":average_overall_co2_per_device,"peak":peak_overall_co2_per_device,"percentage":percentage_comparison_per_device})
