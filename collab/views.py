@@ -153,7 +153,7 @@ class DevicesApi(APIView):
 
 #@permission_classes([permissions.IsAuthenticated])
 class VertexAiChat(APIView):
-    def get(self, req):
+    def get(self, req,data):
         parameters = {
             "temperature": 0.2,
             "max_output_tokens": 256,
@@ -163,7 +163,7 @@ class VertexAiChat(APIView):
 
         model = TextGenerationModel.from_pretrained("text-bison@001")
         response = model.predict(
-            'Give me ten interview questions for the role of program manager.',
+            'Based on this data, write whether they are normal and what can be done to improve the conditions.'+data,
             **parameters,
         )
         print(f"Response from Model: {response.text}")
