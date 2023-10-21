@@ -1,0 +1,80 @@
+.dane1{
+    border-top: solid black 1px;
+    border-bottom: solid black 1px;
+    border-left: solid black 1px;
+    border-radius: 10px 0 0 10px;
+    font-size: 1.25rem;
+    margin: 10px;
+
+}
+.dane2{
+    border-top: solid black 1px;
+    border-bottom: solid black 1px;
+    border-right: solid black 1px;
+    border-radius: 0 10px 10px 0;
+    font-size: 1.25rem;
+    margin: 10px;
+}
+
+.obramowka, .obramowka2{
+    border: solid black 1px;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+}
+.obramowka2{
+    margin: 20px;
+}
+img{
+    width: 100%;
+    height: auto;
+    position: relative;
+}
+.centered{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.blur{
+    /*filter: blur(5px);*/
+    border: solid black 1px;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+    text-align: center;
+    width: 20vw;
+}
+.obramowka {
+      margin-top: 15px;
+    }
+
+    /* Nowy styl dla div z klasą "biur" */
+    .biur {
+      position: relative;
+      text-align: center;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Zaktualizowany styl dla div o klasie "blur" */
+    .blur {
+      background-color: rgba(255, 255, 255, 0.7); /* Przezroczyste tło */
+      border: solid black 1px;
+      border-radius: 10px;
+      padding: 10px;
+      width: 20vw;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .obramowka3{
+    border: solid black 1px;
+    border-radius: 10px;
+}

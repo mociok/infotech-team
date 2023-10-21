@@ -22,6 +22,9 @@ def index(req):
 def login(req):
     return render(req, 'login.html')  # render login.html
 
+def main(req):
+    return render(req, 'main.html')
+
 
 def logout(req):
     logout(req)  # logout user
