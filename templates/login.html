@@ -13,7 +13,10 @@
     <div class="duzy">
         <div class="maly">
             {% load socialaccount %}
-            <a href="{% provider_login_url 'google' %}?next=/"><button type="button" class="przycisk">Log-In with Google</button></a>
+            <form method="post" action="{% provider_login_url 'google' %}">
+                {% csrf_token %}
+                <button class="przycisk">Log-In with Google</button>
+            </form>
         </div>
     </div>
 </body>
