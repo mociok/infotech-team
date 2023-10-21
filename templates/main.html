@@ -259,7 +259,7 @@
 
             $('#dropdown_button').prop('disabled', true)
             is_generating = true
-            let ai_data = `{"avg": ${avg},"peak": ${peak},"percentage": ${percentage}}`
+            let ai_data = `{"avg": ${avg},"peak": ${peak},"percentage": "${percentage}"}`
             console.log(ai_data)
             $.getJSON(`/api/ai/${ai_data}/`,
             function(data){
