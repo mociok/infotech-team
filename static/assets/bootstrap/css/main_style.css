@@ -25,13 +25,56 @@
 .obramowka2{
     margin: 20px;
 }
-/*.lewy{*/
-/*    position: absolute;*/
-/*    top: 0;*/
-/*    left: 0;*/
-/*    bottom: 0;*/
-/*    right: 0;*/
-/*    width: 100%;*/
-/*    height: 100%;*/
-/*    margin-bottom: 0;*/
-/*}*/
+img{
+    width: 100%;
+    height: auto;
+    position: relative;
+}
+.centered{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.blur{
+    /*filter: blur(5px);*/
+    border: solid black 1px;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+    text-align: center;
+    width: 20vw;
+}
+.obramowka {
+      margin-top: 15px;
+    }
+
+    /* Nowy styl dla div z klasą "biur" */
+    .biur {
+      position: relative;
+      text-align: center;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Zaktualizowany styl dla div o klasie "blur" */
+    .blur {
+      background-color: rgba(255, 255, 255, 0.7); /* Przezroczyste tło */
+      border: solid black 1px;
+      border-radius: 10px;
+      padding: 10px;
+      width: 20vw;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .obramowka3{
+    border: solid black 1px;
+    border-radius: 10px;
+}
