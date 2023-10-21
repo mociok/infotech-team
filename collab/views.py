@@ -9,7 +9,7 @@ from rest_framework.response import Response
 from .models import DeviceData, DeviceDataVars,Devices
 from django.db.models import Q,Avg, FloatField, F,Max
 from django.utils import timezone
-from django.db.models.functions import Cast
+from django.db.models.functions import Cast,Round
 from django.db.models.expressions import ExpressionWrapper
 from django.shortcuts import redirect, render
 from django.contrib.auth import logout
@@ -72,12 +72,12 @@ class DevicesApi(APIView):
         ).values(
             'device__devName'
         ).annotate(
-            avg_value=Avg(
+            avg_value=Round(Avg(
                 ExpressionWrapper(
                     Cast(F('decodedPayload__variable'), FloatField()),
                     output_field=FloatField()
                 )
-            )
+            ),1)
         )
 
         peak_overall_co2_per_device = DeviceData.objects.filter(
@@ -85,17 +85,17 @@ class DevicesApi(APIView):
         ).values(
             'device__devName'
         ).annotate(
-            max_value=Max(
+            max_value=Round(Max(
                 ExpressionWrapper(
                     Cast(F('decodedPayload__variable'), FloatField()),
                     output_field=FloatField()
                 )
-            )
+            ),1)
         )
 
         # Definicja okresów czasu
-        last_hour = timezone.now() - timedelta(hours=1)
-        last_24_hours = timezone.now() - timedelta(hours=24)
+        last_hour = timezone.now() - timedelta(minutes=5)
+        last_24_hours = timezone.now() - timedelta(hours=1)
 
         # Obliczenie średniej z ostatniej godziny dla zmiennej 'CO2' dla każdego urządzenia
         average_last_hour_co2_per_device = DeviceData.objects.filter(

@@ -68,21 +68,27 @@
             $('#1_h').html(`${devName} - carbon footprint` + `<br>Avg: ${data_avg} <br> Peak: ${data_peak}`)
 
             if (data_percentage === null) {
-                 $('#2_h').html(`The carbon footprint at the sensor ${devName} has not enouth data
-                <br>to show the percentage change in the last 24 hours`)
+                 $('#2_h').html(`The carbon footprint at the sensor ${devName} has not enough data
+                <br>to show the percentage change in the last 1 hour`)
             } else {
-                if (data_percentage.prcnt < 0) {
-                    $('#2_h').html(`The carbon footprint at the sensor ${devName} has decreased by ${data_percentage * -1}%
-                <br>in the last 24 hours`)
+                if (data_percentage < 0) {
+                    $('#2_h').html(`The carbon footprint at the sensor ${devName} has <br><c style="color:limegreen;">decreased</c>
+                    by ${data_percentage * -1}% in the last 1 hour`)
                 } else {
-                    $('#2_h').html(`The carbon footprint at the sensor ${devName} has increased by ${data_percentage}%
-                <br>in the last 24 hours`)
+                    $('#2_h').html(`The carbon footprint at the sensor ${devName} has <br><c style="color:red;">increased</c>
+                    by ${data_percentage}% in the last 1 hour`)
                 }
             }
         }
 
         let data_jsons = []
         let active_device = null
+        let avg_jsons = []
+        let peak_jsons = []
+        let percentage_jsons = []
+        let active_avg = null
+        let active_peak = null
+        let active_percentage = null
         $.getJSON('{% url 'get_devices' %}',function(data){
             //console.log(data.avg,data.peak,data.percentage)
             $.each(data.devices,function(key,value){
@@ -101,6 +107,10 @@
 
                 if (active_device === null) {
                     active_device = value;
+                    avg_jsons = data.avg
+                    peak_jsons = data.peak
+                    percentage_jsons = data.percentage
+
                     setText(active_device.devName, data_avg.avg_value, data_peak.max_value, data_percentage.prcnt)
                     $('#dropdown_button').text(value.devName)
                     $('#dropdown_button').removeAttr('disabled')
@@ -120,7 +130,14 @@
                 active_device = data_jsons.find(x => x.devName === e.target.innerText)
                 set_active(active_device.devName)
 
+                active_avg = avg_jsons.find(x => x.device__devName === active_device.devName)
+                active_peak = peak_jsons.find(x => x.device__devName === active_device.devName)
+                active_percentage = percentage_jsons.find(x => x.devName === active_device.devName)
 
+                if (active_percentage === undefined) {
+                    setText(active_device.devName, active_avg.avg_value, active_peak.max_value, null)
+                } else
+                    setText(active_device.devName, active_avg.avg_value, active_peak.max_value, active_percentage.prcnt)
             }
         })
 
