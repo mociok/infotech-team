@@ -16,6 +16,7 @@ from django.contrib.auth import logout
 
 import vertexai
 from vertexai.language_models import ChatModel, InputOutputTextPair
+from vertexai.preview.language_models import TextGenerationModel
 
 
 def index(req):
@@ -153,14 +154,17 @@ class DevicesApi(APIView):
 #@permission_classes([permissions.IsAuthenticated])
 class VertexAiChat(APIView):
     def get(self, req):
-        vertexai.init(project="collabothon23fra-1260", location="us-central1")
-        chat_model = ChatModel.from_pretrained("chat-bison")
         parameters = {
-            "candidate_count": 1,
-            "max_output_tokens": 1024,
             "temperature": 0.2,
-            "top_p": 0.8,
-            "top_k": 40
+            "max_output_tokens": 256,
+            "top_p": .8,
+            "top_k": 40,
         }
-        chat = chat_model.start_chat()
-        return Response({"status": chat})
+
+        model = TextGenerationModel.from_pretrained("text-bison@001")
+        response = model.predict(
+            'Give me ten interview questions for the role of program manager.',
+            **parameters,
+        )
+        print(f"Response from Model: {response.text}")
+        return Response({"status": response.text})
