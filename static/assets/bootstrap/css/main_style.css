@@ -1,4 +1,4 @@
-.dane1{
+.dane1 {
     border-top: solid black 1px;
     border-bottom: solid black 1px;
     border-left: solid black 1px;
@@ -6,10 +6,9 @@
     font-size: 1.25rem;
     margin: 10px;
     min-height: 60px;
-    margin-top:10px ;
+    margin-top: 10px;
     margin-bottom: 0;
     width: 100%;
-
 }
 .dane2{
     border-top: solid black 1px;
@@ -21,6 +20,7 @@
     min-height: 60px;
     margin-top:10px ;
     margin-bottom: 0;
+    margin-right: 10px;
     width: 100%;
 }
 
