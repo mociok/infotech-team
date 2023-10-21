@@ -151,7 +151,7 @@ AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 
-LOGIN_REDIRECT_URL = '/index'  # after login redirect to home page
+LOGIN_REDIRECT_URL = 'index'  # after login redirect to home page
 LOGOUT_REDIRECT_URL = '/'  # after logout redirect to home page
 
 CSRF_TRUSTED_ORIGINS = [
