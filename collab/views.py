@@ -168,7 +168,7 @@ class VertexAiChat(APIView):
             f'Given the provided data points regarding CO2 levels in a city/office environment:'
             f'- Average CO2 Value: {data["avg"]} - Peak CO2 Value: {data["peak"]}'
             f'- Percentage Change in CO2 Value: {data["percentage"]}% (indicating an [increase/decrease])'
-            f'Please provide a detailed analysis on the current trend based on these metrics.',
+            f'Please provide a current trend based on these metrics. Limit it to 30 words',
             **parameters,
         )
         response2 = model.predict(
