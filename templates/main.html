@@ -50,19 +50,10 @@
         </div>
     </div>
 </div>
-    <div class="container justify-content-center align-items-center d-flex">
-        <div class="row obramowka3 kontener">
-          <div class="col" style="padding: 0">
-            <div class="biur">
-              <img src="{% static 'img/img1.png' %}" alt="zdjęcie" style="border-radius: 10px">
-                <div class="rzecz">
-                  <div class="blur">
-                    <h2>napisik napisik napisik napisik napisik napisik napisik napisik napisik napisik </h2>
-                  </div>
-                </div>
+    <div class="row obramowka" style="margin-top: 15px;">
+        <div class="col">
+            <h1>napis napis napis napis napis napis napis napis napis napis napis napis napis napis napis napis napis napis napis napis v v napis napis napis napis napis napis napis napis napis napis napis napis napis napis napis napis napis napis napis napis&nbsp;</h1><br>
 
-            </div>
-          </div>
         </div>
     </div>
     <div class="row d-flex justify-content-start align-items-start justify-content-md-center align-items-md-center" style="margin-left: 0; margin-right: 0; overflow-x: hidden;">
@@ -116,6 +107,8 @@
             </ul>
         </div>
     </div>
+    <br>
+
 
 
 
@@ -203,7 +196,7 @@
                     $('#data_avg').html("&nbsp;Data Average: " + data_avg.avg_value +" ppm")
                     $('#data_peak').html("Data Peak: " + data_peak.max_value+" ppm&nbsp;")
 
-                    GenerateText(data_avg.avg_value, data_peak.max_value, $('#carbon').text())
+                    GenerateText(data_avg.avg_value, data_peak.max_value, data_percentage.prcnt)
                 } else {
                     $('#dropdown').append('<a class="dropdown-item" href="#">' + value.devName + '</a>')
                     data_jsons.push(value)
@@ -233,7 +226,7 @@
                 active_peak = peak_jsons.find(x => x.device__devName === active_device.devName)
                 active_percentage = percentage_jsons.find(x => x.devName === active_device.devName)
 
-                GenerateText(active_avg.avg_value, active_peak.max_value, $('#carbon').text())
+                GenerateText(active_avg.avg_value, active_peak.max_value, active_percentage.prcnt)
                 if (active_percentage === undefined) {
                     setText(active_device.devName, active_avg.avg_value, active_peak.max_value, null)
                 } else
@@ -249,8 +242,12 @@
 
             $('#dropdown_button').prop('disabled', true)
             is_generating = true
-            let ai_data = `{"avg": ${avg},"peak": ${peak},"percentage": "${percentage}"}`
-            console.log(ai_data)
+
+            if (percentage === undefined || percentage === null) {
+                percentage = 0.0
+            }
+            let ai_data = `{"avg": ${avg},"peak": ${peak},"percentage": ${percentage}}`
+
             $.getJSON(`/api/ai/${ai_data}/`,
             function(data){
                 console.log(data)

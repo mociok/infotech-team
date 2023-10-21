@@ -1,147 +1,28 @@
-/** {*/
-/*   box-sizing: border-box;*/
-/*}*/
-/*.dane1 {*/
-/*    border-top: solid black 1px;*/
-/*    border-bottom: solid black 1px;*/
-/*    border-left: solid black 1px;*/
-/*    border-radius: 10px 0 0 10px;*/
-/*    font-size: 1.25rem;*/
-/*    margin: 10px;*/
-/*    min-height: 60px;*/
-/*    margin-top: 10px;*/
-/*    margin-bottom: 0;*/
-/*    width: 100%;*/
-/*}*/
-/*.dane2{*/
-/*    border-top: solid black 1px;*/
-/*    border-bottom: solid black 1px;*/
-/*    border-right: solid black 1px;*/
-/*    border-radius: 0 10px 10px 0;*/
-/*    font-size: 1.25rem;*/
-/*    min-height: 60px;*/
-/*    margin-top:10px ;*/
-/*    margin-bottom: 0;*/
-/*    width: 100%;*/
-/*}*/
-
-/*.obramowka, .obramowka2{*/
-/*    border: solid black 1px;*/
-/*    border-radius: 10px;*/
-/*    padding: 10px;*/
-/*    margin: 10px;*/
-/*    margin-top: 5px;*/
-/*}*/
-/*.obramowka2{*/
-/*    margin: 20px;*/
-/*    margin-top: 5px;*/
-/*}*/
-/*img{*/
-/*    width: 100%;*/
-/*    height: 100vh;*/
-/*    position: relative;*/
-/*}*/
-/*.centered{*/
-/*  position: absolute;*/
-/*  top: 50%;*/
-/*  left: 50%;*/
-/*  transform: translate(-50%, -50%);*/
-/*}*/
-/*.blur{*/
-/*    !*filter: blur(5px);*!*/
-/*    border: solid black 1px;*/
-/*    border-radius: 10px;*/
-/*    padding: 10px;*/
-/*    margin: 10px;*/
-/*    text-align: center;*/
-/*    width: 20vw;*/
-/*}*/
-/*.obramowka {*/
-/*      margin-top: 15px;*/
-/*    }*/
-
-/*    !* Nowy styl dla div z klasą "biur" *!*/
-/*    .biur {*/
-/*      position: relative;*/
-/*      text-align: center;*/
-/*    }*/
-
-/*    img {*/
-/*      width: 100vw;*/
-/*      height: auto;*/
-/*      display: block;*/
-/*    }*/
-
-/*.blur {*/
-/*      background-color: rgba(255, 255, 255, 0.7); !* Przezroczyste tło *!*/
-/*      border: solid black 1px;*/
-/*      border-radius: 10px;*/
-/*      padding: 10px;*/
-/*      min-width: 70%; !* Szerokość w procentach *!*/
-/*      position: absolute;*/
-/*      top: 50%;*/
-/*      left: 50%;*/
-/*      transform: translate(-50%, -50%);*/
-/*      max-height: 70%; !* Maksymalna wysokość diva "blur" *!*/
-
-/*    }*/
-
-
-/*.obramowka3 {*/
-/*    border: solid black 1px;*/
-/*    border-radius: 10px;*/
-/*}*/
-
-/*.biur {*/
-/*      position: relative;*/
-/*      display: flex;*/
-/*      justify-content: center;*/
-/*      align-items: center;*/
-/*      height: 100%;*/
-/*    }*/
-
-/*.blur-container {*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
-/*    align-items: center;  !* Wycentrowanie divów z klasą blur w poziomie *!*/
-/*    width: 100%;  !* Pełna szerokość kontenera *!*/
-/*}*/
-
-/*.blur {*/
-/*    width: 100%; !* Pełna szerokość kontenera *!*/
-/*    max-width: 20vw; !* Maksymalna szerokość zgodnie z Twoim pierwotnym stylem *!*/
-/*    margin-top: 10px; !* Odstęp na górze *!*/
-/*    margin-bottom: 10px; !* Odstęp na dole *!*/
-/*}*/
-
-
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+   box-sizing: border-box;
 }
-body, html {
-    padding: 10px;
-    background-image: url("https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
-}
-
-.dane1, .dane2 {
-    font-size: 1.25rem;
-    min-height: 60px;
-    width: 100%;
+.dane1 {
     border-top: solid black 1px;
     border-bottom: solid black 1px;
-    margin: 10px 0;
-}
-
-.dane1 {
     border-left: solid black 1px;
     border-radius: 10px 0 0 10px;
+    font-size: 1.25rem;
+    margin: 10px;
+    min-height: 60px;
+    margin-top: 10px;
+    margin-bottom: 0;
+    width: 100%;
 }
-
 .dane2{
+    border-top: solid black 1px;
+    border-bottom: solid black 1px;
     border-right: solid black 1px;
     border-radius: 0 10px 10px 0;
+    font-size: 1.25rem;
+    min-height: 60px;
+    margin-top:10px ;
+    margin-bottom: 0;
+    width: 100%;
 }
 
 .obramowka, .obramowka2{
@@ -151,45 +32,75 @@ body, html {
     margin: 10px;
     margin-top: 5px;
 }
-
 .obramowka2{
     margin: 20px;
     margin-top: 5px;
 }
+img{
+    width: 100%;
+    height: 100vh;
+    position: relative;
+}
+.centered{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 
-img {
-    width: 100vw;
-    height: 100vh; /* Dostosuj do swoich potrzeb */
-    display: block;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: -1;
-    object-fit: cover; /* Zapewnia, że obraz pokryje kontener bez przekształceń */
-    max-width: 100%; /* Zapobiega wychodzeniu obrazu poza kontenery */
+.obramowka {
+      margin-top: 15px;
+    }
+
+    /* Nowy styl dla div z klasą "biur" */
+    .biur {
+      position: relative;
+      text-align: center;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+
+
+.obramowka3 {
+    border: solid black 1px;
+    border-radius: 10px;
 }
 
 .biur {
-    position: relative;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-}
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
 
-.blur-container {
-    width: 80%;
-    text-align: center;
-    z-index: 1; /* Upewnia się, że kontener jest nad obrazem */
-}
-
-.blur {
-    background-color: rgba(255, 255, 255, 0.7);
+.blur{
+    /*filter: blur(5px);*/
     border: solid black 1px;
     border-radius: 10px;
     padding: 10px;
     margin: 10px;
-    width: 100%;
+    text-align: center;
+    width: 20vw;
+}
+
+.blur {
+      background-color: rgba(255, 255, 255, 0.7); /* Przezroczyste tło */
+      border: solid black 1px;
+      border-radius: 10px;
+      padding: 10px;
+      min-width: 70%; /* Szerokość w procentach */
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      max-height: 100vh; /* Maksymalna wysokość diva "blur" */
+    }
+
+body{
+    background-image: url("");
 }
