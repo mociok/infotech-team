@@ -170,5 +170,5 @@ class VertexAiChat(APIView):
             'Based on this data, determine whether these data are normal, if not, write a 3-4 steps at points that can lead to a reduction in the city' + data,
             **parameters,
         )
-        print(f"Response from Model: {response.text}")
-        return Response({"status": response.text,"status2":response2.text})
+        #print(f"Response from Model: {response.text}")
+        return Response({"trend": response.text,"steps":response2.text})
