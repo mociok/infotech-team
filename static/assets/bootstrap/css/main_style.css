@@ -88,3 +88,11 @@ img{
     border: solid black 1px;
     border-radius: 10px;
 }
+
+.biur {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
