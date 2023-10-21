@@ -25,10 +25,9 @@ def login(req):
 def main(req):
     return render(req, 'main.html')
 
-
-def logout(req):
+def signout(req):
     logout(req)  # logout user
-    return redirect('/')
+    return redirect('login')
 
 
 # 4hXGwzn4.LbYxWp0Ikiv9u5cneU0h2WRm3jFBMzom -- API KEY!!!1!
