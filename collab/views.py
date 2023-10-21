@@ -189,14 +189,14 @@ class VertexAiChat(APIView):
         response = model.predict(
             f'Based on this CO2 data, write me a trend that will determine whether these data are normal,'
             f'- Average CO2 Value: {data["avg"]} ppm - Peak CO2 Value: {data["peak"]} ppm'
-            f'- {data["percentage"]}, you should be specific for urban/office environments.',
+            f'- {data["percentage"]}, you should be specific for urban/office environments. Limit it to 35 words',
             **parameters,
         )
         response2 = model.predict(
             f'Based on the CO2 levels and the trend analysis:'
             f'- Average CO2 Value: {data["avg"]} ppm - Peak CO2 Value: {data["peak"]} ppm'
             f'- {data["percentage"]}, write few steps that can lead to a reduction in urban/office environments.'
-            f'List the steps in the format. that does \n after each step',
+            f'List the steps in the HTML format.',
             **parameters,
         )
         #print(f"Response from Model: {response.text}")
