@@ -17,6 +17,7 @@ from django.contrib.auth import logout
 import vertexai
 from vertexai.language_models import ChatModel, InputOutputTextPair
 from vertexai.preview.language_models import TextGenerationModel
+import json
 
 
 def index(req):
@@ -160,19 +161,20 @@ class VertexAiChat(APIView):
             "top_p": .8,
             "top_k": 40,
         }
-
+        data = json.loads(data)
+        #print(data,data['avg'],data['peak'],data['percentage'])
         model = TextGenerationModel.from_pretrained("text-bison@001")
         response = model.predict(
             f'Given the provided data points regarding CO2 levels in a city/office environment:'
-            f'- Average CO2 Value: {data.avg} - Peak CO2 Value: {data.peak}'
-            f'- Percentage Change in CO2 Value: {data.percentage}% (indicating an [increase/decrease])'
+            f'- Average CO2 Value: {data["avg"]} - Peak CO2 Value: {data["peak"]}'
+            f'- Percentage Change in CO2 Value: {data["percentage"]}% (indicating an [increase/decrease])'
             f'Please provide a detailed analysis on the current trend based on these metrics.',
             **parameters,
         )
         response2 = model.predict(
             f'Based on the CO2 levels and the trend analysis:'
-            f'- Average CO2 Value: {data.avg} - Peak CO2 Value: {data.peak}'
-            f'- Percentage Change in CO2 Value: {data.percentage}% (indicating an [increase/decrease])'
+            f'- Average CO2 Value: {data["avg"]} - Peak CO2 Value: {data["peak"]}'
+            f'- Percentage Change in CO2 Value: {data["percentage"]}% (indicating an [increase/decrease])'
             f'Kindly provide actionable steps that can be implemented in urban/office environments to address '
             f'this trend. List the steps in the [list] format.',
             **parameters,
