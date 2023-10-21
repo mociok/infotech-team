@@ -32,7 +32,7 @@
     <!-- Prawy div -->
     <div class="col-4 d-flex justify-content-end align-items-center">
         <div class="prawo">
-            <button class="btn btn-primary" type="button">Wyloguj</button>
+            <a href="{% url 'logout' %}"><button class="btn btn-primary" type="button">Wyloguj</button></a>
         </div>
     </div>
 </div>
@@ -193,10 +193,10 @@
         }).fail(function(jqXHR, textStatus, errorThrown) {
             if (errorThrown.includes("Forbidden")) {
                 alert("You are not logged in!")
-                window.location.href = "{% url 'admin:index' %}" //login
+                window.location.href = "{% url 'login' %}" //login
             } else {
                 alert("Error: " + errorThrown + "\nTry again later!")
-                window.location.href = "{% url 'admin:index' %}" //login
+                window.location.href = "{% url 'login' %}" //login
             }
         })/*.done(function(){
             //Coś możemy zrobić jak sie dane załadują

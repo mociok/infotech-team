@@ -152,7 +152,7 @@ AUTHENTICATION_BACKENDS = (
 )
 
 LOGIN_REDIRECT_URL = 'index'  # after login redirect to home page
-LOGOUT_REDIRECT_URL = '/'  # after logout redirect to home page
+LOGOUT_REDIRECT_URL = 'login'  # after logout redirect to home page
 
 CSRF_TRUSTED_ORIGINS = [
     'https://https://infotech-team-h7zawhdoca-lm.a.run.app'

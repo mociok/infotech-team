@@ -6,6 +6,7 @@ from allauth.socialaccount.providers.google.urls import urlpatterns as google_ur
 urlpatterns = [
     path('old/', index, name='index.old'),
     path('login/',login, name='login'),
+    path('logout/',signout, name='logout'),
     path('', main, name='index'),
     path('api/get_device_data/', LoraApi.as_view() , name='get_device_data'), # get device data
     path('api/get_devices/', DevicesApi.as_view() , name='get_devices'), # get devices
