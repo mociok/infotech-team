@@ -133,8 +133,8 @@
 
         function setText(devName, data_avg, data_peak, data_percentage) {
             //$('#1_h').html(`${devName} - carbon footprint` + `<br>Avg: ${data_avg} ppm <br> Peak: ${data_peak} ppm`)
-            $('#data_avg').html("&nbsp;Data Average: " + data_avg +" ppm")
-            $('#data_peak').html("Data Peak: " + data_peak +" ppm&nbsp;")
+            $('#data_avg').html("&nbsp;Data 24-hour Average: " + data_avg +" ppm")
+            $('#data_peak').html("Data all time Peak: " + data_peak +" ppm&nbsp;")
 
             if (data_percentage === null) {
                  $('#carbon').html(`The carbon footprint at the Sensor ${devName} has not enough data
@@ -195,8 +195,8 @@
                     set_active(active_device.devName)
                     data_jsons.push(value)
 
-                    $('#data_avg').html("&nbsp;Data Average: " + data_avg.avg_value +" ppm")
-                    $('#data_peak').html("Data Peak: " + data_peak.max_value+" ppm&nbsp;")
+                    $('#data_avg').html("&nbsp;Data 24-hour Average: " + data_avg.avg_value +" ppm")
+                    $('#data_peak').html("Data all time Peak: " + data_peak.max_value+" ppm&nbsp;")
 
                     GenerateText(data_avg.avg_value, data_peak.max_value, data_percentage.prcnt)
                 } else {
