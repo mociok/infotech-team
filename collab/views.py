@@ -168,7 +168,7 @@ class VertexAiChat(APIView):
             f'Given the provided data points regarding CO2 levels in a city/office environment:'
             f'- Average CO2 Value: {data["avg"]} - Peak CO2 Value: {data["peak"]}'
             f'- Percentage Change in CO2 Value: {data["percentage"]}% (indicating an [increase/decrease])'
-            f'write me a trend that will determine whether these data are normal. Limit it to 30 words',
+            f'write me a trend that will determine whether these values are normal, tell me how much should it be ideally. Limit it to 30 words',
             **parameters,
         )
         response2 = model.predict(
