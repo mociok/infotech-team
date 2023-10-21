@@ -97,7 +97,8 @@ class DevicesApi(APIView):
         devices = Devices.objects.filter(Q(user=req.user, is_public=False) | Q(is_public=True))
         devices_data_list = []
         average_overall_co2_per_device = DeviceData.objects.filter(
-            decodedPayload__variable_name='CO2'
+            decodedPayload__variable_name='CO2',
+            time__gte=timezone.now() - timedelta(hours=24),
         ).values(
             'device__devName'
         ).annotate(
@@ -108,6 +109,10 @@ class DevicesApi(APIView):
                 )
             ),1)
         )
+        print(DeviceData.objects.filter(
+            decodedPayload__variable_name='CO2',
+            time__gte=timezone.now() - timedelta(hours=24),
+        ))
 
         peak_overall_co2_per_device = DeviceData.objects.filter(
             decodedPayload__variable_name='CO2'
@@ -124,7 +129,7 @@ class DevicesApi(APIView):
 
         # Definicja okresów czasu
         last_hour= timezone.now().replace(minute=0, second=0, microsecond=0)
-        last_24_hours = last_hour - timedelta(hours=1)
+        last_24_hours = last_hour - timedelta(hours=1,minutes=10)
         #print(last_hour,last_24_hours)
 
         # Obliczenie średniej z ostatniej godziny dla zmiennej 'CO2' dla każdego urządzenia
@@ -188,14 +193,14 @@ class VertexAiChat(APIView):
         model = TextGenerationModel.from_pretrained("text-bison@001")
         response = model.predict(
             f'Based on this CO2 data, write me a trend that will determine whether these data are normal,'
-            f'- Average CO2 Value: {data["avg"]} ppm - Peak CO2 Value: {data["peak"]} ppm'
+            f'- Average 24-hour CO2 Value: {data["avg"]} ppm - Peak CO2 Value: {data["peak"]} ppm'
             f'- {data["percentage"]}, you should be specific for urban/office environments. Limit it to 35 words,'
-            f'write it in HTML format by adding in specific words increasing (red) and decreasing (green) text colors',
+            f'write it in HTML format by always adding in words increasing (red) and decreasing (green) text colors',
             **parameters,
         )
         response2 = model.predict(
             f'Based on the CO2 levels from sensor and the trend analysis:'
-            f'- Average CO2 Value: {data["avg"]} ppm - Peak CO2 Value: {data["peak"]} ppm'
+            f'- Average 24-hour CO2 Value: {data["avg"]} ppm - Peak CO2 Value: {data["peak"]} ppm'
             f'- {data["percentage"]}, write few steps that can lead to a reduction in office environments.'
             f'List the steps in the HTML <ul> <li> format. Limit it to 5 best steps',
             **parameters,
