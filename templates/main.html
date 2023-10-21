@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>szybka strona ux ui</title>
+    <title>INFOTECH Team APP</title>
     <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'assets/bootstrap/css/main_style.css' %}">
 
@@ -55,7 +55,7 @@
     <!-- Prawy div -->
     <div class="col-4 d-flex justify-content-end align-items-center" style="margin-left: -10px; padding-right: 0;">
         <div class="prawo">
-            <a href="{% url 'logout' %}"><button class="btn btn-primary" type="button">Wyloguj</button></a>
+            <a href="{% url 'logout' %}"><button class="btn btn-primary" type="button">Logout</button></a>
         </div>
     </div>
 </div>
@@ -247,7 +247,7 @@
         let is_generating = false
         function GenerateText(avg,peak, percentage) {
             if (is_generating) {
-                return console.log("is generating")
+                return console.log("")
             }
 
             $('#dropdown_button').prop('disabled', true)
@@ -260,7 +260,7 @@
 
             $.getJSON(`/api/ai/${ai_data}/`,
             function(data){
-                console.log(data)
+                //console.log(data)
                 $('#ai_trend').html(data.trend)
                 $('#ai_steps').html(data.steps)
                 $('#dropdown_button').removeAttr('disabled')
@@ -270,7 +270,7 @@
                     alert("You are not logged in!")
                     window.location.href = "{% url 'login' %}" //login
                 } else {
-                    console.log("Error: " + errorThrown + "\nTry again later!")
+                    //console.log("Error: " + errorThrown + "\nTry again later!")
                     $('#ai_trend').text("There was an Error when generating prompt!\n Try again later")
                     $('#ai_steps').text("There was an Error when generating prompt!\n Try again later")
                     $('#dropdown_button').removeAttr('disabled')
