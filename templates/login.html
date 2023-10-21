@@ -86,20 +86,21 @@
         </div>
     {% endif %}
     <div class="bg">
-    <div class="login-container">
-        <div class="login-box">
-            {% load socialaccount %}
-            <h3>Sign in</h3>
-            <br>
-            <form method="post" action="{% provider_login_url 'google' %}">
-                {% csrf_token %}
-                <button class="btn btn-google btn-login text-uppercase fw-bold">
-                    <i class="fab fa-google"></i> Sign in with Google
-                </button>
-            </form>
-            <br>
+        <div class="login-container">
+            <div class="login-box">
+                {% load socialaccount %}
+                <h3>Sign in</h3>
+                <br>
+                <form method="post" action="{% provider_login_url 'google' %}">
+                    {% csrf_token %}
+                    <button class="btn btn-google btn-login text-uppercase fw-bold">
+                        <i class="fab fa-google"></i> Sign in with Google
+                    </button>
+                </form>
+                <br>
+                <i style="color: black; font-size: small">INFOTECH Team | COLLABOTHON 2023</i>
+            </div>
         </div>
-    </div>
     </div>
 </body>
 <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
