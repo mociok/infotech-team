@@ -157,7 +157,7 @@ class VertexAiChat(APIView):
     def get(self, req,data):
         parameters = {
             "temperature": 0.2,
-            "max_output_tokens": 150,
+            "max_output_tokens": 150, #100 tokens correspond to roughly 60-80 words
             "top_p": .8,
             "top_k": 40,
         }

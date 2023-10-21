@@ -214,8 +214,11 @@
             //Coś możemy zrobić jak sie dane załadują
         })*/
         addEventListener('click',function(e){
-            if (e.target.classList.contains('dropdown-item')) {
+            if (e.target.classList.contains('dropdown-item') && !is_generating) {
                 $('#dropdown_button').text(e.target.innerText)
+                $('#ai_trend').text("Loading AI...")
+                $('#ai_steps').text("Loading AI...")
+
                 active_device = data_jsons.find(x => x.devName === e.target.innerText)
                 set_active(active_device.devName)
 
@@ -223,6 +226,7 @@
                 active_peak = peak_jsons.find(x => x.device__devName === active_device.devName)
                 active_percentage = percentage_jsons.find(x => x.devName === active_device.devName)
 
+                GenerateText(active_avg.avg_value, active_peak.max_value, active_percentage.prcnt)
                 if (active_percentage === undefined) {
                     setText(active_device.devName, active_avg.avg_value, active_peak.max_value, null)
                 } else
@@ -230,17 +234,27 @@
             }
         })
 
+        let is_generating = false
         function GenerateText(avg,peak, percentage) {
+            if (is_generating) {
+                return console.log("is generating")
+            }
+
+            $('#dropdown_button').prop('disabled', true)
+            is_generating = true
+
             if (percentage === undefined || percentage === null) {
                 percentage = 0.0
             }
             let ai_data = `{"avg": ${avg},"peak": ${peak},"percentage": ${percentage}}`
-            console.log("wysyłamy do ai dane: ",ai_data,"\nzobaczymy co dalej...")
+
             $.getJSON(`/api/ai/${ai_data}/`,
             function(data){
                 console.log(data)
                 $('#ai_trend').html(data.trend)
                 $('#ai_steps').html(data.steps)
+                $('#dropdown_button').removeAttr('disabled')
+                is_generating = false
             }).fail(function(jqXHR, textStatus, errorThrown) {
                 if (errorThrown.includes("Forbidden")) {
                     alert("You are not logged in!")
@@ -249,6 +263,8 @@
                     console.log("Error: " + errorThrown + "\nTry again later!")
                     $('#ai_trend').text("There was an Error when generating prompt!\n Try again later")
                     $('#ai_steps').text("There was an Error when generating prompt!\n Try again later")
+                    $('#dropdown_button').removeAttr('disabled')
+                    is_generating = false
                 }
 
             })
