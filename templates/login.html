@@ -7,15 +7,19 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'assets/bootstrap/css/login.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <title>Log-In</title>
 </head>
 <body style="background: var(--bs-body-color);color: var(--bs-secondary-bg);">
     <div class="duzy">
+        <img src="{% static 'img/login_background.png' %}" alt="zdjęcie" style="border-radius: 10px">
         <div class="maly">
             {% load socialaccount %}
             <form method="post" action="{% provider_login_url 'google' %}">
                 {% csrf_token %}
-                <button class="przycisk">Log-In with Google</button>
+                <button class="przycisk">
+                    <i class="fab fa-google"></i> Log-In with Google
+                </button>
             </form>
         </div>
     </div>
