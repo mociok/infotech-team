@@ -234,12 +234,7 @@
             if (percentage === undefined || percentage === null) {
                 percentage = 0.0
             }
-            let ai_data = {
-               // "device": active_device.devName,
-                "avg": avg,
-                "peak": peak,
-                "percentage": percentage
-            }
+            let ai_data = `{"avg": ${avg},"peak": ${peak},"percentage": ${percentage}}`
             console.log("wysyłamy do ai dane: ",ai_data,"\nzobaczymy co dalej...")
             $.getJSON(`/api/ai/${ai_data}/`,
             function(data){
