@@ -8,6 +8,7 @@ urlpatterns = [
     path('login/',login, name='login'),
     path('logout/',signout, name='logout'),
     path('', main, name='index'),
+    path('api/ai/', VertexAiChat.as_view(), name='ai'),
     path('api/get_device_data/', LoraApi.as_view() , name='get_device_data'), # get device data
     path('api/get_devices/', DevicesApi.as_view() , name='get_devices'), # get devices
     path('accounts/', include('allauth.urls')), # allauth

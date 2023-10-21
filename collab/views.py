@@ -14,6 +14,9 @@ from django.db.models.expressions import ExpressionWrapper
 from django.shortcuts import redirect, render
 from django.contrib.auth import logout
 
+import vertexai
+from vertexai.language_models import ChatModel, InputOutputTextPair
+
 
 def index(req):
     return render(req, 'index.html') # render index.html
@@ -146,3 +149,18 @@ class DevicesApi(APIView):
             })
 
         return Response({"devices": devices.values(),"avg":average_overall_co2_per_device,"peak":peak_overall_co2_per_device,"percentage":percentage_comparison_per_device})
+
+#@permission_classes([permissions.IsAuthenticated])
+class VertexAiChat(APIView):
+    def get(self, req):
+        vertexai.init(project="collabothon23fra-1260", location="us-central1")
+        chat_model = ChatModel.from_pretrained("chat-bison")
+        parameters = {
+            "candidate_count": 1,
+            "max_output_tokens": 1024,
+            "temperature": 0.2,
+            "top_p": 0.8,
+            "top_k": 40
+        }
+        chat = chat_model.start_chat(parameters, InputOutputTextPair("Hello", "Hi, how are you?"), timeout=60)
+        return Response({"status": chat})
