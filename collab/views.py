@@ -163,8 +163,12 @@ class VertexAiChat(APIView):
 
         model = TextGenerationModel.from_pretrained("text-bison@001")
         response = model.predict(
-            'Based on this data, write whether they are normal and what can be done to improve the conditions.'+data,
+            'Based on this data, write me a trend that will determine whether these data are normal'+data,
+            **parameters,
+        )
+        response2 = model.predict(
+            'Based on this data, determine whether these data are normal, if not, write a 3-4 steps at points that can lead to a reduction in the city' + data,
             **parameters,
         )
         print(f"Response from Model: {response.text}")
-        return Response({"status": response.text})
+        return Response({"status": response.text,"status2":response2.text})
