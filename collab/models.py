@@ -13,6 +13,11 @@ class Devices(models.Model):
         else:
             return f"{self.devName} - {self.devEui} - Users: {self.user.all().count()}"
 
+    class Meta():
+        verbose_name_plural = "Devices"
+        verbose_name = "Device"
+        db_table = "devices"
+
 
 class DeviceData(models.Model):
     device = models.ForeignKey(Devices, on_delete=models.CASCADE, related_name='data') # device that send data
@@ -22,6 +27,11 @@ class DeviceData(models.Model):
     def __str__(self):
         return f"{self.device.devName} - {self.device.devEui} // added at: {self.time.strftime('%m/%d/%Y, %H:%M')}"
 
+    class Meta():
+        verbose_name_plural = "Device Data"
+        verbose_name = "Device Data"
+        db_table = "device_data"
+
 
 class DeviceDataVars(models.Model):
     variable_name = models.CharField(max_length=100) # name of variable
@@ -30,3 +40,7 @@ class DeviceDataVars(models.Model):
     def __str__(self):
         return f"({self.id}) {self.variable_name} - {self.variable}"
 
+    class Meta():
+        verbose_name_plural = "Device Data Variables"
+        verbose_name = "Device Data Variable"
+        db_table = "device_data_vars"
