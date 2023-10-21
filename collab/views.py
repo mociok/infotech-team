@@ -94,8 +94,9 @@ class DevicesApi(APIView):
         )
 
         # Definicja okresów czasu
-        last_hour = timezone.now() - timedelta(minutes=5)
-        last_24_hours = timezone.now() - timedelta(hours=1)
+        last_hour= timezone.now().replace(minute=0, second=0, microsecond=0)
+        last_24_hours = last_hour - timedelta(hours=1)
+        #print(last_hour,last_24_hours)
 
         # Obliczenie średniej z ostatniej godziny dla zmiennej 'CO2' dla każdego urządzenia
         average_last_hour_co2_per_device = DeviceData.objects.filter(
