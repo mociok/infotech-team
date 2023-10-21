@@ -1,6 +1,12 @@
 * {
-   box-sizing: border-box;
+   margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
+body, html {
+    padding: 10px;
+}
+
 .dane1 {
     border-top: solid black 1px;
     border-bottom: solid black 1px;
