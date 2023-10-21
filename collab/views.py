@@ -162,5 +162,5 @@ class VertexAiChat(APIView):
             "top_p": 0.8,
             "top_k": 40
         }
-        chat = chat_model.start_chat(parameters, InputOutputTextPair("Hello", "Hi, how are you?"), timeout=60)
+        chat = chat_model.start_chat()
         return Response({"status": chat})
