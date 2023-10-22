@@ -148,7 +148,9 @@
 
             if (data_percentage === null) {
                  $('#carbon').html(`The carbon footprint at the Sensor ${devName} has not enough data
-                <br>to show the percentage change in the last hour`)
+                <br>to show the percentage change in the last hour.<br>Perhaps the Sensor is not connected?`)
+                $('#bad_circle').css('opacity', '0')
+                $('#good_circle').css('opacity', '0')
             } else {
                 if (data_percentage < 0.0) {
                     $('#carbon').html(`The carbon footprint at the Sensor ${devName} has <br><c style="color:limegreen;">decreased</c>
@@ -248,11 +250,10 @@
 
         let is_generating = false
         function GenerateText(avg,peak, percentage) {
-            if (is_generating) {
-                return console.log("")
-            }
-
             $('#dropdown_button').prop('disabled', true)
+            if (is_generating) {
+                return $('#dropdown_button').removeAttr('disabled')
+            }
             is_generating = true
 
             if (percentage === undefined || percentage === null) {

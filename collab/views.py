@@ -124,8 +124,8 @@ class DevicesApi(APIView):
         )
 
         # Definicja okresów czasu
-        last_hour= timezone.now().replace(minute=0, second=0, microsecond=0)
-        last_24_hours = last_hour - timedelta(hours=1,minutes=10)
+        last_hour= timezone.now() -timedelta(minutes=10)
+        last_24_hours = timezone.now() - timedelta(hours=1,minutes=10)
         #print(last_hour,last_24_hours)
 
         # Obliczenie średniej z ostatniej godziny dla zmiennej 'CO2' dla każdego urządzenia
@@ -175,7 +175,7 @@ class DevicesApi(APIView):
 
         return Response({"devices": devices.values(),"avg":average_overall_co2_per_device,"peak":peak_overall_co2_per_device,"percentage":percentage_comparison_per_device})
 
-#@permission_classes([permissions.IsAuthenticated])
+@permission_classes([permissions.IsAuthenticated])
 class VertexAiChat(APIView):
     def get(self, req,data):
         parameters = {
