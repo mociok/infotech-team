@@ -152,6 +152,9 @@
                 $('#bad_circle').css('opacity', '0')
                 $('#good_circle').css('opacity', '0')
             } else {
+                if (data_percentage === 0)
+                    data_percentage = 0.1
+
                 if (data_percentage < 0.0) {
                     $('#carbon').html(`The carbon footprint at the Sensor ${devName} has <br><c style="color:limegreen;">decreased</c>
                     by ${data_percentage * -1}% in the last hour`)
@@ -250,10 +253,10 @@
 
         let is_generating = false
         function GenerateText(avg,peak, percentage) {
-            $('#dropdown_button').prop('disabled', true)
             if (is_generating) {
                 return $('#dropdown_button').removeAttr('disabled')
             }
+            $('#dropdown_button').prop('disabled', true)
             is_generating = true
 
             if (percentage === undefined || percentage === null) {
