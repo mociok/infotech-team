@@ -49,7 +49,7 @@ body, html {
     margin-bottom: 0;
     margin-left: -10px;
     left: 0;
-          background-color: rgba(255, 255, 255, 0.8); /* Przezroczyste tło */
+    background-color: rgba(255, 255, 255, 0.8); /* Przezroczyste tło */
 
 }
 .dane2{
@@ -63,7 +63,7 @@ body, html {
     margin-bottom: 0;
     margin-right: -10px;
     right: 0;
-          background-color: rgba(255, 255, 255, 0.8); /* Przezroczyste tło */
+    background-color: rgba(255, 255, 255, 0.8); /* Przezroczyste tło */
 
 }
 
@@ -72,7 +72,7 @@ body, html {
     border-radius: 10px;
     padding: 10px;
     margin-top: 5px;
-          background-color: rgba(255, 255, 255, 0.8); /* Przezroczyste tło */
+    background-color: rgba(255, 255, 255, 0.8); /* Przezroczyste tło */
     width: 100%;
     box-sizing: border-box;
     margin-left: 10px;
@@ -123,8 +123,14 @@ img{
           background-color: rgba(238, 238, 238, 0.7); /* Przezroczyste tło */
 
 }
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: white;
+}
 
-
-body{
-    background-image: url("");
+.prawo-col {
+    margin-left: -10px;
+    padding-right: 0;
 }
