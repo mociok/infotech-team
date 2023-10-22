@@ -70,6 +70,10 @@ body, html {
     right: 0;
     text-align: right;
 }
+.dane1, .dane2{
+    border-bottom: 1px solid black;
+    z-index: 90;
+}
 
 
 .obramowka, .obramowka2{
