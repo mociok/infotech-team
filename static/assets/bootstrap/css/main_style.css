@@ -1,3 +1,34 @@
+/*.biur {*/
+/*      position: relative;*/
+/*      display: flex;*/
+/*      justify-content: center;*/
+/*      align-items: center;*/
+/*      height: 100%;*/
+/*    }*/
+
+/*.blur{*/
+/*    !*filter: blur(5px);*!*/
+/*    border: solid black 1px;*/
+/*    border-radius: 10px;*/
+/*    padding: 10px;*/
+/*    margin: 10px;*/
+/*    text-align: center;*/
+/*    width: 20vw;*/
+/*}*/
+
+/*.blur {*/
+/*      background-color: rgba(232, 219, 219, 0.7); !* Przezroczyste tło *!*/
+/*      border: solid black 1px;*/
+/*      border-radius: 10px;*/
+/*      padding: 10px;*/
+/*      min-width: 70%; !* Szerokość w procentach *!*/
+/*      top: 50%;*/
+/*      left: 50%;*/
+/*      transform: translate(-50%, -50%);*/
+/*      max-height: 100vh; !* Maksymalna wysokość diva "blur" *!*/
+/*    }*/
+
+
 * {
     margin: 0;
     padding: 0;
@@ -16,9 +47,8 @@ body, html {
     min-height: 60px;
     margin-top: 10px;
     margin-bottom: 0;
-    margin-left: 0;
+    margin-left: -10px;
     left: 0;
-    width: 100%;
           background-color: rgba(255, 255, 255, 0.8); /* Przezroczyste tło */
 
 }
@@ -31,7 +61,8 @@ body, html {
     min-height: 60px;
     margin-top:10px ;
     margin-bottom: 0;
-    width: 100%;
+    margin-right: -10px;
+    right: 0;
           background-color: rgba(255, 255, 255, 0.8); /* Przezroczyste tło */
 
 }
@@ -40,9 +71,13 @@ body, html {
     border: solid black 1px;
     border-radius: 10px;
     padding: 10px;
-    margin: 10px;
     margin-top: 5px;
           background-color: rgba(255, 255, 255, 0.8); /* Przezroczyste tło */
+    width: 100%;
+    box-sizing: border-box;
+    margin-left: 10px;
+    margin-right: 10px;
+
 
 }
 .obramowka2{
@@ -89,35 +124,6 @@ img{
 
 }
 
-.biur {
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100%;
-    }
-
-.blur{
-    /*filter: blur(5px);*/
-    border: solid black 1px;
-    border-radius: 10px;
-    padding: 10px;
-    margin: 10px;
-    text-align: center;
-    width: 20vw;
-}
-
-.blur {
-      background-color: rgba(232, 219, 219, 0.7); /* Przezroczyste tło */
-      border: solid black 1px;
-      border-radius: 10px;
-      padding: 10px;
-      min-width: 70%; /* Szerokość w procentach */
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      max-height: 100vh; /* Maksymalna wysokość diva "blur" */
-    }
 
 body{
     background-image: url("");
